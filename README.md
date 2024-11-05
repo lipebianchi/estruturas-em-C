@@ -38,9 +38,9 @@ Após isso, entre no diretório do arquivo clonado, e rode o arquivo CPP
 
 Caso já esteja utilizando o Dev-C++, basta clicar na tecla F11 para rodar o arquivo executavel.
 
-## MODIFICAÇÃO NO CÓDIGO
+## ⚠️MODIFICAÇÃO NO CÓDIGO
 
-O código já inicia com um vetor de tamanho 170.000 (cento e setenta mil), isso pode ser alterado na linha de código 56 que está escrita da seguinte forma: 
+⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 170.000 (cento e setenta mil), isso pode ser alterado na linha de código 56 que está escrita da seguinte forma: 
 
 ```cpp
   int arr[170000];
