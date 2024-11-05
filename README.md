@@ -55,3 +55,4 @@ Fique a vontade para modificar esse valor, porém, 170 Mil é um valor alto e po
 - [ ]  Insertion Sort;
 - [ ]  Merge Sort;
 - [ ]  Heap Sort;
+- [ ]  Tamanho do array dinâmico.
