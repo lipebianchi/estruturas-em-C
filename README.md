@@ -38,6 +38,15 @@ Após isso, entre no diretório do arquivo clonado, e rode o arquivo CPP
 
 Caso já esteja utilizando o Dev-C++, basta clicar na tecla F11 para rodar o arquivo executavel.
 
+## MODIFICAÇÃO NO CÓDIGO
+
+O código já inicia com um vetor de tamanho 170.000 (cento e setenta mil), isso pode ser alterado na linha de código 56 que está escrita da seguinte forma: 
+
+```cpp
+  int arr[170000];
+```
+Essa linha de código é responsável pelo vetor que será gerado, imprimido, ordenado e comparado na funcionalidade de Ordenação de dados.
+Fique a vontade para modificar esse valor, porém, 170 Mil é um valor alto e pode ser que na execução ele demore um tempo muito alto a depender do seu processador, caso esteja dando erro no programa ou ele demore muito para ser executado, recomendo que abaixe o valor.
 
 ## 🦾 Melhorias
 
