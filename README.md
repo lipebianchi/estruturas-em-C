@@ -1,6 +1,6 @@
 # Projeto de Estruturas de Dados e Algoritmos de Ordenação em C
 
-Este projeto implementa diferentes estruturas de dados (listas, pilhas e filas) e algoritmos de ordenação (Bubble Sort e Selection Sort) em C. O objetivo é demonstrar o funcionamento dessas estruturas e a comparação entre os métodos de ordenação em termos de desempenho.
+Este projeto implementa diferentes estruturas de dados (listas, pilhas e filas) e algoritmos de ordenação (Bubble Sort e Selection Sort) em C.
 
 ## 🎯 Objetivo do Projeto
 Este projeto visa explorar e comparar o comportamento das estruturas de dados e dos algoritmos de ordenação em diferentes cenários. Ele também permite a análise do desempenho dos algoritmos em termos de tempo de execução, ao comparar o Bubble Sort com o Selection Sort em listas de diferentes tamanhos.
@@ -9,9 +9,9 @@ Este projeto visa explorar e comparar o comportamento das estruturas de dados e 
 # 🎆Features
 
 ## Estruturas de Dados Implementadas
-- **Lista**: Implementação de listas encadeadas simples. São fornecidas funções para inserir, remover e exibir elementos.
-- **Pilha**: Implementação de uma pilha, utilizando o conceito de LIFO (Last In, First Out). Permite operações como empilhar e desempilhar elementos.
-- **Fila**: Implementação de uma fila, utilizando o conceito de FIFO (First In, First Out). Permite operações de enfileiramento e desenfileiramento.
+- **Lista**: Implementação de listas encadeadas simples. São fornecidas funções para inserir no inicio, inserir no meio, inserir no fim, remover determinado valor da lista e exibir elementos.
+- **Pilha**: Implementação de uma pilha, utilizando o conceito de LIFO (Last In, First Out). Permite operações como imprimir pilha, empilhar e desempilhar elementos.
+- **Fila**: Implementação de uma fila, utilizando o conceito de FIFO (First In, First Out). Permite operações de imprimir fila, enfileiramento e desenfileiramento.
 
 ## Algoritmos de Ordenação
 
