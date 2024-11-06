@@ -1,9 +1,9 @@
 # Projeto de Estruturas de Dados e Algoritmos de Ordenação em C
 
-Este projeto implementa diferentes estruturas de dados (listas, pilhas e filas) e algoritmos de ordenação (Bubble Sort e Selection Sort) em C.
+Este projeto implementa diferentes estruturas de dados (listas, pilhas e filas) e algoritmos de ordenação (Bubble Sort, Selection Sort, Insertion Sort e Shell Sort) em C.
 
 ## 🎯 Objetivo do Projeto
-Este projeto visa explorar e comparar o comportamento das estruturas de dados e dos algoritmos de ordenação em diferentes cenários. Ele também permite a análise do desempenho dos algoritmos em termos de tempo de execução, ao comparar o Bubble Sort com o Selection Sort em listas de diferentes tamanhos.
+Este projeto visa explorar e comparar o comportamento das estruturas de dados e dos algoritmos de ordenação em diferentes cenários. Ele também permite a análise do desempenho dos algoritmos em termos de tempo de execução, ao comparar métodos de ordenação em listas de diferentes tamanhos.
 
 
 # 🎆Features
@@ -17,6 +17,8 @@ Este projeto visa explorar e comparar o comportamento das estruturas de dados e 
 
 - **Bubble Sort**: Algoritmo de ordenação simples baseado na comparação e troca de elementos adjacentes. A ordenação é realizada em várias passagens pela lista.
 - **Selection Sort**: Algoritmo de ordenação que seleciona repetidamente o menor (ou maior) elemento e o coloca na posição correta.
+- **Insertion Sort**: Algoritmo de ordenação simples que constrói a lista ordenada gradualmente, inserindo um elemento de cada vez na posição correta, comparando-o com os elementos anteriores.
+- **Shell Sort**: Algoritmo de ordenação que melhora o Insertion Sort, utilizando uma sequência de intervalos (gaps) para ordenar elementos distantes antes de refiná-los com gaps menores, acelerando o processo de ordenação.
 
 ## 🏅 Tecnologias Utilizadas
 
@@ -40,19 +42,20 @@ Caso já esteja utilizando o Dev-C++, basta clicar na tecla F11 para rodar o arq
 
 ## ⚠️MODIFICAÇÃO NO CÓDIGO
 
-⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 170.000 (cento e setenta mil), isso pode ser alterado na linha de código 56 que está escrita da seguinte forma: 
+⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 100.000 (cem mil), isso pode ser alterado na linha de código 58 que está escrita da seguinte forma: 
 
 ```cpp
-  int arr[170000];
+  int arr[100000];
 ```
 Essa linha de código é responsável pelo vetor que será gerado, imprimido, ordenado e comparado na funcionalidade de Ordenação de dados.
 Fique a vontade para modificar esse valor, porém, 170 Mil é um valor alto e pode ser que na execução ele demore um tempo muito alto a depender do seu processador, caso esteja dando erro no programa ou ele demore muito para ser executado, recomendo que abaixe o valor.
 
 ## 🦾 Melhorias
 
-- [ ]  Adicionar novos métodos de ordenação;
+- [x]  Adicionar novos métodos de ordenação;
 - [ ]  Quick Sort;
-- [ ]  Insertion Sort;
+- [x]  Insertion Sort;
+- [x]  Shell Sort;
 - [ ]  Merge Sort;
 - [ ]  Heap Sort;
 - [ ]  Tamanho do array dinâmico.
