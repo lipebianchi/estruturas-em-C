@@ -49,11 +49,13 @@ void BubbleSort(int arr[], int n, int *comp, int *shift);
 void printArr(int arr[], int n);
 void SelectSort(int arr[], int n, int *comp, int *shift);
 void compareSortingMethods(int arr[], int n);
+void InsertionSort(int arr[], int n, int *comp, int *shift);
+void ShellSort(int arr[], int n, int *comp, int *shift);
 
 int main(){
 	
 	int option, value, previous, opt, sortOpt,comp=0, shift=0;
-	int arr[170000];
+	int arr[100000];
 	int n = sizeof(arr) / sizeof(arr[0]);
 	No *list = NULL;
 	
@@ -170,7 +172,7 @@ int main(){
 							printArr(arr, n);
 							break;
 						case 3: // ENTRANDO NA ORDENACAO DE DADOS
-							printf("Qual método você deseja utilizar?\n1 - Bubble Sort\n2 - Select Sort\n3 - Comparar metodos de ordenacao\n");
+							printf("Qual método você deseja utilizar?\n1 - Bubble Sort\n2 - Select Sort\n3 - Insertion Sort\n4 - Shell Sort\n5 - Comparar metodos de ordenacao\n");
 							scanf("%d", &sortOpt);
 								
 							switch(sortOpt){
@@ -180,7 +182,13 @@ int main(){
 								case 2: // SELECT SORT
 									SelectSort(arr, n, &comp, &shift);
 									break;
-								case 3: // COMPARAR METODOS DE ORDENACAO
+								case 3:
+									InsertionSort(arr, n, &comp, &shift);
+									break;
+								case 4:
+									ShellSort(arr, n, &comp, &shift);
+									break;
+								case 5: // COMPARAR METODOS DE ORDENACAO
 									compareSortingMethods(arr, n);
 									break;
 								default:
@@ -393,45 +401,528 @@ void SelectSort(int arr[], int n, int *comp, int *shift){
 	printf("\n\nSELECTION SORT:\n\n\nQuantidade de comparacoes feitas: %d\nQuantidade de trocas feitas: %d\n\n\n", *comp, *shift);
 }
 
+void InsertionSort(int arr[], int n, int *comp, int *shift){
+	int i = 0, j = 0, key = 0;
+	
+	for(i = 1; i < n; i++){
+		key = arr[i];
+		j = i - 1;
+		(*comp)++;
+		while(j >= 0 && arr[j] > key){
+			(*shift)++;
+			(*comp)++;
+			arr[j + 1] = arr[j];
+			j--;			
+		}
+		arr[j+1] = key;
+	}
+	printf("\n");
+}
+
+void ShellSort(int arr[], int n, int *comp, int *shift){
+	int i,j, value;
+	
+	int h = 1;
+	while(h < n){
+		h = 3*h+1;
+	}
+	while(h > 0){
+		for(i = h; i < n; i++){
+			value = arr[i];
+			j = i;
+			while(j > h-1 && value <= arr[j - h]){
+				arr[j] = arr [j - h];
+				j = j - h;
+			}
+			arr[j] = value;
+		}
+		h = h/3;
+	}
+}
+
 void compareSortingMethods(int arr[], int n){
 	system("cls");
-	int i;
-	int bubble_comp = 0, bubble_shift = 0, bubble_efficiency = 0;
-	int selection_comp = 0, selection_shift = 0, selection_efficiency = 0;
+	int i, choose, c;
+	int first_comp = 0, first_shift = 0, second_comp = 0, second_shift = 0, third_comp = 0, third_shift = 0, fourth_comp = 0, fourth_shift = 0, first_arr[n], second_arr[n], third_arr[n], fourth_arr[n];
+	clock_t first_start, second_start, third_start, fourth_start, first_end, second_end, third_end, fourth_end;
+	double time_first = 0, time_second = 0, time_third = 0, time_fourth = 0;
 	
-	int bubble_arr[n];
-	int selection_arr[n];
-	for(i = 0; i < n; i++){
-		bubble_arr[i] = arr[i];
-		selection_arr[i] = arr[i];
+	printf("Escolha qual método deseja comparar: \n1 - Bubble Sort\n2 - Select Sort\n3 - Insertion Sort\n4 - Shell Sort\n5 - Comparar todos\n");
+	scanf("%d", &choose);
+	switch(choose){
+		case 1:
+			printf("Deseja comparar o Bubble com quem?\n1 - Select Sort\n2 - Insertion Sort\n3 - Shell Sort\n");
+			scanf("%d", &c);
+			switch(c){
+				case 1:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					BubbleSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					SelectSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no bubble sort: %.2f segundos\nTempo gasto no select: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O select sort foi: %.2f%% mais eficiente que o bubble sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O bubble sort foi: %.2f%% mais eficiente que o select sort.", efficiency);
+					}
+					break;
+				case 2:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					BubbleSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					InsertionSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no bubble sort: %.2f segundos\nTempo gasto no insertion: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O insertion sort foi: %.2f%% mais eficiente que o bubble sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O bubble sort foi: %.2f%% mais eficiente que o insertion sort.", efficiency);
+					}
+					break;
+				case 3:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					BubbleSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					ShellSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no bubble sort: %.2f segundos\nTempo gasto no shell: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O shell sort foi: %.2f%% mais eficiente que o bubble sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O bubble sort foi: %.2f%% mais eficiente que o shell sort.", efficiency);
+					}
+					break;
+			}
+			break;
+		case 2:
+			printf("Deseja comparar o Select com quem?\n1 - Bubble Sort\n2 - Insertion Sort\n3 - Shell Sort\n");
+			scanf("%d", &c);
+			switch(c){
+				case 1:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					SelectSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					BubbleSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no select sort: %.2f segundos\nTempo gasto no bubble: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Bubble sort foi: %.2f%% mais eficiente que o Select sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Select sort foi: %.2f%% mais eficiente que o Bubble sort.", efficiency);
+					}
+					break;
+				case 2:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					SelectSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					InsertionSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no select sort: %.2f segundos\nTempo gasto no insertion: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O insertion sort foi: %.2f%% mais eficiente que o Select sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O select sort foi: %.2f%% mais eficiente que o insertion sort.", efficiency);
+					}
+					break;
+				case 3:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					SelectSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					ShellSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no select sort: %.2f segundos\nTempo gasto no shell: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Shell sort foi: %.2f%% mais eficiente que o Select sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Select sort foi: %.2f%% mais eficiente que o Shell sort.", efficiency);
+					}
+					break;
+			}
+			break;
+		case 3:
+			printf("Deseja comparar o Insertion com quem?\n1 - Bubble Sort\n2 - Select Sort\n3 - Shell Sort\n");
+			scanf("%d", &c);
+			switch(c){
+				case 1:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					InsertionSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					BubbleSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Insertion sort: %.2f segundos\nTempo gasto no Bubble: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Bubble sort foi: %.2f%% mais eficiente que o Insertion sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Insertion sort foi: %.2f%% mais eficiente que o Bubble sort.", efficiency);
+					}
+					break;
+				case 2:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					InsertionSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					SelectSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Insertion sort: %.2f segundos\nTempo gasto no Select Sort: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Select sort foi: %.2f%% mais eficiente que o Insertion sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Insertion sort foi: %.2f%% mais eficiente que o Select sort.", efficiency);
+					}
+					break;
+				case 3:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					InsertionSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					ShellSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Insertion sort: %.2f segundos\nTempo gasto no Shell Sort: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Shell sort foi: %.2f%% mais eficiente que o Insertion sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Insertion sort foi: %.2f%% mais eficiente que o Shell sort.", efficiency);
+					}
+					break;
+			}
+			break;
+		case 4:
+			printf("Deseja comparar o Shell com quem?\n1 - Bubble Sort\n2 - Select Sort\n3 - Insertion Sort\n");
+			scanf("%d", &c);
+			switch(c){
+				case 1:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					ShellSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					BubbleSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Shell sort: %.2f segundos\nTempo gasto no Bubble sort: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Bubble sort foi: %.2f%% mais eficiente que o Shell sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Shell sort foi: %.2f%% mais eficiente que o Bubble sort.", efficiency);
+					}
+					break;
+				case 2:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					ShellSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					SelectSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Shell sort: %.2f segundos\nTempo gasto no Select sort: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Select sort foi: %.2f%% mais eficiente que o Shell sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Shell sort foi: %.2f%% mais eficiente que o Select sort.", efficiency);
+					}
+					break;
+				case 3:
+					for(i = 0; i < n; i++){
+						first_arr[i] = arr[i];
+						second_arr[i] = arr[i];
+					}
+					
+					printf("VETOR ANTES DA ORDENACAO: \n\n\n");
+					printArr(arr, n);
+					
+					first_start = clock();
+					ShellSort(first_arr, n, &first_comp, &first_shift);
+					first_end = clock();
+					
+					time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+					
+					second_start = clock();
+					InsertionSort(second_arr, n, &second_comp, &second_shift);
+					second_end = clock();
+					
+					time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+					
+					printf("VETOR APOS A ORDENACAO: \n\n\n");
+					printArr(first_arr, n);
+					
+					printf("\nTempo gasto no Shell sort: %.2f segundos\nTempo gasto no Insertion sort: %.2f segundos\n", time_first, time_second);
+					
+					if(time_second < time_first){
+						double efficiency = ((time_first / time_second) - 1) * 100;
+						printf("O Insertion sort foi: %.2f%% mais eficiente que o Shell sort.", efficiency);
+					}else{
+						double efficiency = ((time_second / time_first) - 1) * 100;
+						printf("O Shell sort foi: %.2f%% mais eficiente que o Insertion sort.", efficiency);
+					}
+					break;
+			}
+			break;
+		case 5:
+			for(i = 0; i < n; i++){
+				first_arr[i] = arr[i];
+				second_arr[i] = arr[i];
+				third_arr[i] = arr[i];
+				fourth_arr[i] = arr[i];
+			}
+			
+			printf("VETOR DESORDENADO: \n\n\n");
+			printArr(arr, n);
+			
+			first_start = clock();
+			BubbleSort(first_arr, n, &first_comp, &first_shift);
+			first_end = clock();
+			
+			time_first = (double)(first_end - first_start) / CLOCKS_PER_SEC;
+			
+			second_start = clock();
+			SelectSort(second_arr, n, &second_comp, &second_shift);
+			second_end = clock();
+			
+			time_second = (double)(second_end - second_start) / CLOCKS_PER_SEC;
+			
+			third_start = clock();
+			InsertionSort(third_arr, n, &third_comp, &third_shift);
+			third_end = clock();
+			
+			time_third = (double)(third_end - third_start) / CLOCKS_PER_SEC;
+			
+			fourth_start = clock();
+			ShellSort(fourth_arr, n, &fourth_comp, &fourth_shift);
+			fourth_end = clock();
+			
+			time_fourth = (double)(fourth_end - fourth_start) / CLOCKS_PER_SEC;
+			
+			printf("\nTempo gasto no bubble sort: %.4f segundos\nTempo gasto no select sort: %.4f segundos\nTempo gasto no insertion sort: %.4f segundos\nTempo gasto no shell sort: %.4f segundos\n", time_first, time_second, time_third, time_fourth);
+		default:
+			break;
 	}
 	
-	printf("VETOR ANTES DA ORDENACAO: \n\n\n");
-	printArr(arr, n);
 	
-	clock_t start_bubble = clock();
-	BubbleSort(bubble_arr, n, &bubble_comp, &bubble_shift);
-	clock_t end_bubble = clock();
-	
-	double time_spent_bubble = (double)(end_bubble - start_bubble) / CLOCKS_PER_SEC;
-	
-	clock_t start_selection = clock();
-	SelectSort(selection_arr, n, &selection_comp, &selection_shift);
-	clock_t end_selection = clock();
-	
-	double time_spent_selection = (double)(end_selection - start_selection) / CLOCKS_PER_SEC;
-	
-	printf("VETOR APOS A ORDENACAO: \n\n\n");
-	printArr(bubble_arr, n);
-	
-	printf("\nTempo gasto no bubble sort: %.2f segundos\nTempo gasto no select: %.2f segundos\n", time_spent_bubble, time_spent_selection);
-	
-	if(time_spent_bubble > 0){
-		double efficiency = ((time_spent_bubble - time_spent_selection) / time_spent_bubble) * 100;
-		printf("Select Sort foi: %.2f%% mais eficiente que o Bubble Sort.\n\n", efficiency);
-	}else{
-		printf("tempo de execução é abaixo de zero, não é possivel calcular a eficiencia!");
-	}
 }
 
 void printArr(int arr[], int n){
