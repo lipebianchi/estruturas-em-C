@@ -36,9 +36,7 @@ Clone o projeto
   git clone https://github.com/lipebianchi/estruturas-em-C.git
 ```
 
-Após isso, entre no diretório do arquivo clonado, e rode o arquivo CPP
-
-Caso já esteja utilizando o Dev-C++, basta clicar na tecla F11 para rodar o arquivo executavel.
+Após isso, entre no diretório do arquivo clonado, e rode o estruturas.exe
 
 ## ⚠️MODIFICAÇÃO NO CÓDIGO
 
