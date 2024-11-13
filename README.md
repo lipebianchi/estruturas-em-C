@@ -19,6 +19,7 @@ Este projeto visa explorar e comparar o comportamento das estruturas de dados e 
 - **Selection Sort**: Algoritmo de ordenação que seleciona repetidamente o menor (ou maior) elemento e o coloca na posição correta.
 - **Insertion Sort**: Algoritmo de ordenação simples que constrói a lista ordenada gradualmente, inserindo um elemento de cada vez na posição correta, comparando-o com os elementos anteriores.
 - **Shell Sort**: Algoritmo de ordenação que melhora o Insertion Sort, utilizando uma sequência de intervalos (gaps) para ordenar elementos distantes antes de refiná-los com gaps menores, acelerando o processo de ordenação.
+- **Merge Sort**: Algoritmo de ordenação que tem como principio "dividir para conquistar", utiliza funções recursivas para quebrar o vetor lógicamente em partes menores, para assim que o vetor ficar em tamanho 1, começar a dar merge (mesclar) os vetores menores com os maiores.
 
 ## 🏅 Tecnologias Utilizadas
 
@@ -40,13 +41,13 @@ Após isso, entre no diretório do arquivo clonado, e rode o estruturas.exe
 
 ## ⚠️MODIFICAÇÃO NO CÓDIGO
 
-⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 100.000 (cem mil), isso pode ser alterado na linha de código 58 que está escrita da seguinte forma: 
+⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 100.000 (cem mil), isso pode ser alterado na linha de código 60 que está escrita da seguinte forma: 
 
 ```cpp
-  int arr[100000];
+  int arr[50000];
 ```
 Essa linha de código é responsável pelo vetor que será gerado, imprimido, ordenado e comparado na funcionalidade de Ordenação de dados.
-Fique a vontade para modificar esse valor, porém, 170 Mil é um valor alto e pode ser que na execução ele demore um tempo muito alto a depender do seu processador, caso esteja dando erro no programa ou ele demore muito para ser executado, recomendo que abaixe o valor.
+Fique a vontade para modificar esse valor, porém, 50 Mil é um valor alto e pode ser que na execução ele demore um tempo muito alto a depender do seu processador, caso esteja dando erro no programa ou ele demore muito para ser executado, recomendo que abaixe o valor.
 
 ## 🦾 Melhorias
 
@@ -54,6 +55,6 @@ Fique a vontade para modificar esse valor, porém, 170 Mil é um valor alto e po
 - [ ]  Quick Sort;
 - [x]  Insertion Sort;
 - [x]  Shell Sort;
-- [ ]  Merge Sort;
+- [x]  Merge Sort;
 - [ ]  Heap Sort;
 - [ ]  Tamanho do array dinâmico.
