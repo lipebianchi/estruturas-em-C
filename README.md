@@ -41,7 +41,7 @@ Após isso, entre no diretório do arquivo clonado, e rode o estruturas.exe
 
 ## ⚠️MODIFICAÇÃO NO CÓDIGO
 
-⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 100.000 (cem mil), isso pode ser alterado na linha de código 60 que está escrita da seguinte forma: 
+⚠️ **CUIDADO**: O código já inicia com um vetor de tamanho 50.000 (cinquenta mil), isso pode ser alterado na linha de código 60 que está escrita da seguinte forma: 
 
 ```cpp
   int arr[50000];
